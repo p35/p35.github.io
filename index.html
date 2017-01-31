@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Wordpress JSON API</title>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script>
+		$(document).ready(function() {               		    
+			$(".loadingImage").show();
+			$.getJSON('http://prayafrica.org/wp-json/wp/v2/posts?categories=28&per_page=3', function(data) {
+				$.each(data, function(i,item){
+				var str = item.date;
+				if(str.length > 10) str = str.substring(0,10);
+				content = '<li class="prayerBox"><h3 class="mustardText">' + str + '</h3><strong>' + item.title.rendered + '</strong>' + item.content.rendered + '</li>';
+				$(content).appendTo("#prayerPoints");
+			});
+			$(".loadingImage").hide(); 
+			});
+		});
+		</script>
+	</head>
+	<body>
+	<div class="loadingImage">Loading Prayer points…</div>
+<ul id="prayerPoints"></ul>
+	</body>
+</html>
